@@ -1,8 +1,5 @@
 import { createArtifactService ,getArtifactsService} from "../services/artifact.service.js";
 
-/**
- * POST /artifacts
- */
 export const createArtifact = async (req, res) => {
   try {
     const artifact = await createArtifactService({

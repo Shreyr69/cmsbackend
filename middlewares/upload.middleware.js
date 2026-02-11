@@ -1,9 +1,7 @@
 import multer from "multer";
 import path from "path";
 
-// Set up storage engine for multer
 const storage = multer.diskStorage({
-    // cb : callback function to specify the destination and filename for uploaded files
   destination: function (req, file, cb) {
     cb(null, "uploads/"); // Directory to save uploaded files
     },
@@ -15,7 +13,6 @@ const storage = multer.diskStorage({
     }
 });
 
-// File type validation
 
 const fileFilter = (req, file, cb) => {
 
@@ -30,7 +27,6 @@ const fileFilter = (req, file, cb) => {
     
 };
 
-// Export multer instance with defined storage and file filter
 
 export const upload = multer({
     storage: storage,

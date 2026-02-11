@@ -4,9 +4,6 @@ import {
   loginService
 } from "../services/auth.service.js";
 
-/**
- * POST /auth/signup/initiate
- */
 export const initiateSignup = async (req, res) => {
   try {
     const { email } = req.body;
@@ -33,9 +30,6 @@ export const initiateSignup = async (req, res) => {
   }
 };
 
-/**
- * POST /auth/signup/verify
- */
 export const verifySignupOtp = async (req, res) => {
   try {
     const { email, otp, name, password,role } = req.body;
@@ -68,32 +62,10 @@ export const verifySignupOtp = async (req, res) => {
   }
 };
 
-// export const login = async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
 
-//     if (!email || !password) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Email and password required"
-//       });
-//     }
 
-//     const result = await loginService(email, password);
     
 
-//     res.status(200).json({
-//       success: true,
-//       message: "Login successful",
-//       ...result
-//     });
-//   } catch (error) {
-//     res.status(401).json({
-//       success: false,
-//       message: error.message
-//     });
-//   }
-// };  
 
 
 export const login = async (req, res) => {

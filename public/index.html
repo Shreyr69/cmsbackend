@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Test</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Chat Test</h1>
+      <section class="panel">
+        <label>
+          Your User ID
+          <input id="senderId" type="text" placeholder="Sender user id" />
+        </label>
+        <label>
+          Receiver User ID
+          <input id="receiverId" type="text" placeholder="Receiver user id" />
+        </label>
+        <button id="goOnline" type="button">Go Online</button>
+      </section>
+
+      <section class="panel">
+        <label>
+          Message
+          <input id="message" type="text" placeholder="Type a message" />
+        </label>
+        <button id="sendMessage" type="button">Send</button>
+      </section>
+
+      <section class="panel">
+        <h2>Logs</h2>
+        <div id="log" class="log"></div>
+      </section>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>

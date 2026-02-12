@@ -10,10 +10,17 @@ const threadSchema = new mongoose.Schema(
       }
     ],
     lastMessage: {
-      type: String
+      type: String,
+      default: ""
+    },
+    lastMessageAt: {
+      type: Date,
+      default: Date.now
     }
   },
   { timestamps: true }
 );
+
+threadSchema.index({ participants: 1 });
 
 export default mongoose.model("Thread", threadSchema);

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Chat Test</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<div class="chat-container">
+  <div class="chat-header">
+    <h3>Live Chat Test</h3>
+  </div>
+
+  <div class="chat-panel connect-panel">
+    <div class="input-group">
+      <input id="userId" placeholder="Your User ID" class="input-field" />
+      <button onclick="connectUser()" class="btn btn-primary">Connect</button>
+    </div>
+  </div>
+
+  <div class="chat-panel message-panel">
+    <div class="input-group">
+      <input id="receiverId" placeholder="Receiver ID" class="input-field" />
+      <input id="message" placeholder="Message" class="input-field" />
+      <button onclick="sendMessage()" class="btn btn-success">Send</button>
+    </div>
+  </div>
+
+  <div id="messages" class="messages-box"></div>
+</div>
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+<script>
+  const socket = io("https://retta-imperceptive-practically.ngrok-free.dev/");
+  const messageInput = document.getElementById("message");
+
+  function connectUser() {
+    const userId = document.getElementById("userId").value;
+    if (!userId.trim()) {
+      alert("Please enter your User ID");
+      return;
+    }
+    socket.emit("user-online", userId);
+    alert("Connected as: " + userId);
+  }
+
+  function sendMessage() {
+    const senderId = document.getElementById("userId").value;
+    const receiverId = document.getElementById("receiverId").value;
+    const message = document.getElementById("message").value;
+
+    if (!senderId.trim() || !receiverId.trim() || !message.trim()) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    socket.emit("send-message", {
+      senderId,
+      receiverId,
+      message
+    });
+
+    document.getElementById("message").value = "";
+    messageInput.focus();
+  }
+
+  function appendMessage(text, type) {
+    const div = document.createElement("div");
+    div.innerText = text;
+    div.className = "message message-" + type;
+    document.getElementById("messages").appendChild(div);
+    document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+  }
+
+  messageInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
+  });
+
+  socket.on("receive-message", (data) => {
+    appendMessage("Received: " + data.message, "received");
+  });
+
+  socket.on("message-sent", (data) => {
+    appendMessage("Sent: " + data.message, "sent");
+  });
+
+  socket.on("connect", () => {
+    appendMessage("✓ Connected to server", "system");
+  });
+
+  socket.on("disconnect", () => {
+    appendMessage("✗ Disconnected from server", "system");
+  });
+</script>
+
+</body>
+</html>

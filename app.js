@@ -26,6 +26,10 @@ app.get("/", (req,res)=>{
     });
 })
 
+app.get("/chat", (req,res)=>{
+    res.sendFile("public/chat.html", { root: "." });
+})
+
 
 app.use("/webhook", webhookRoutes);
 app.use("/auth",authRoutes);

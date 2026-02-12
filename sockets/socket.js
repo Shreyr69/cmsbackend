@@ -28,10 +28,10 @@ export const registerSocketHandlers = (io) =>{
 
                 let receiverSocketId = onlineUsers.get(receiverId);
                 if(receiverSocketId){
-                    io.to(receiverSocketId).emit("received-message",data.message);
+                    io.to(receiverSocketId).emit("receive-message", { message });
                 }
 
-                socket.emit("sent-message",data.message);
+                socket.emit("message-sent", { message });
 
             }catch(error){
                 console.log("Socket-error:",error.message)

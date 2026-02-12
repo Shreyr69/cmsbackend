@@ -5,6 +5,8 @@ import path from "path";
 import app from "./app.js";
 import connectDB from "./config/db.js";
 import connectCloudinary from "./config/cloudinary.js";
+import { testing } from "./crons/testing.js";
+import { archiveDraftArtifacts } from "./crons/archiveDrafts.js";
 
 const uploadsDir = path.join(process.cwd(), "uploads");
 if (!fs.existsSync(uploadsDir)) {
@@ -13,6 +15,8 @@ if (!fs.existsSync(uploadsDir)) {
 
 connectDB();
 connectCloudinary();
+testing();
+archiveDraftArtifacts();
 
 const PORT = process.env.PORT || 5000;
 

@@ -6,6 +6,7 @@ import artifactRoutes from "./routes/artifacts.route.js";
 import likeRoutes from "./routes/likes.routes.js";
 import commentRoutes from "./routes/comment.route.js";
 import cookieParser from "cookie-parser";
+import webhookRoutes from "./routes/webhook.route.js";
 
 
 const app = express();
@@ -23,6 +24,8 @@ app.get("/", (req,res)=>{
     });
 })
 
+
+app.use("/webhook", webhookRoutes);
 app.use("/auth",authRoutes);
 app.use("/artifact",artifactRoutes);
 app.use("/likes",likeRoutes);
